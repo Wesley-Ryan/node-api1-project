@@ -2,6 +2,7 @@ const express = require("express");
 const shortID = require("shortid");
 
 const server = express();
+server.use(express.json());
 
 //DB
 let db = [
@@ -67,6 +68,15 @@ server.get("/api/users/:id", (req, res) => {
 });
 
 //post user
+server.post("/api/users", (req, res) => {
+  const clientUser = req.body;
+  if (!clientUser.name && !clientUser.bio) {
+    res.status(400).json({ message: "User name and Bio required." });
+  } else {
+    const createdUser = User.postUser(clientUser);
+    res.status(201).json(createdUser);
+  }
+});
 
 // put/edit user
 
