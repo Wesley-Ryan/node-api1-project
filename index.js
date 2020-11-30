@@ -6,7 +6,7 @@ const server = express();
 //DB
 let db = [
   {
-    id: shortID.generate(),
+    id: "1",
     name: "First User",
     bio: "I was the first user to sign up on this server.",
   },
@@ -53,6 +53,18 @@ server.get("/api/users", (req, res) => {
   res.status(200).json(users);
 });
 //get user by id
+server.get("/api/users/:id", (req, res) => {
+  const { id } = req.params;
+  const user = User.getUserByID(id);
+
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res
+      .status(400)
+      .json({ message: "We could not find the requested user :( " });
+  }
+});
 
 //post user
 
