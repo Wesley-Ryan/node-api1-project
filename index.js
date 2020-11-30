@@ -80,6 +80,19 @@ server.post("/api/users", (req, res) => {
 });
 
 // put/edit user
+server.put("/api/users/:id", (req, res) => {
+  const userChanges = req.body;
+  const { id } = req.params;
+  const updatedUser = User.editUser(id, userChanges);
+
+  if (updatedUser) {
+    res.status(200).json(updatedUser);
+  } else {
+    res
+      .status(400)
+      .json({ message: "We were unable to locate the user with that id :(" });
+  }
+});
 
 // delete user
 server.delete("/api/users/:id", (req, res) => {
