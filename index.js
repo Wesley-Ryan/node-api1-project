@@ -4,11 +4,13 @@ const shortID = require("shortid");
 const server = express();
 
 //DB
-let db = {
-  id: shortID.generate(),
-  name: "First User",
-  bio: "I was the first user to sign up on this server.",
-};
+let db = [
+  {
+    id: shortID.generate(),
+    name: "First User",
+    bio: "I was the first user to sign up on this server.",
+  },
+];
 
 //Helpers
 const User = {
@@ -46,7 +48,10 @@ const User = {
 //****End Points ****
 
 //get all users
-server.get("/users", () => {});
+server.get("/api/users", (req, res) => {
+  const users = User.getAllUsers();
+  res.status(200).json(users);
+});
 //get user by id
 
 //post user
