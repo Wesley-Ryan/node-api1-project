@@ -1,10 +1,11 @@
 const express = require("express");
 const { restart } = require("nodemon");
 const shortID = require("shortid");
+const CORS = require("cors");
 
 const server = express();
 server.use(express.json());
-
+server.use(CORS());
 //DB
 let db = [
   {
