@@ -1,4 +1,5 @@
 const express = require("express");
+const { restart } = require("nodemon");
 const shortID = require("shortid");
 
 const server = express();
@@ -81,6 +82,17 @@ server.post("/api/users", (req, res) => {
 // put/edit user
 
 // delete user
+server.delete("/api/users/:id", (req, res) => {
+  const { id } = req.params;
+  const deletedUser = User.deleteUser(id);
+  if (deletedUser) {
+    res.status(200).json(deletedUser);
+  } else {
+    res
+      .status(400)
+      .json({ message: "We were unable to delete the requested user :(" });
+  }
+});
 
 server.use("*", (req, res) => {
   res.status(404).json({ message: "Error, Not Found" });
