@@ -3,6 +3,8 @@ const { restart } = require("nodemon");
 const shortID = require("shortid");
 const CORS = require("cors");
 
+const port = process.env.PORT || 4000;
+const path = require("path");
 const server = express();
 server.use(express.json());
 server.use(CORS());
@@ -111,6 +113,6 @@ server.delete("/api/users/:id", (req, res) => {
 server.use("*", (req, res) => {
   res.status(404).json({ message: "Error, Not Found" });
 });
-server.listen(5001, () => {
-  console.log("server running on port 5001");
+server.listen(port, () => {
+  console.log(`****Listening on port:${port}****`);
 });
